@@ -11,6 +11,8 @@ import {
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
+import {BookmarkProvider} from "@/app/Context/BookmarkContext";
+
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
@@ -32,7 +34,9 @@ export default function RootLayout({
         <body className={`${bricolage.variable} antialiased`}>
 
           <Navbar/>
+          <BookmarkProvider>
           {children}
+            </BookmarkProvider>
         </body>
       </html>
     </ClerkProvider>

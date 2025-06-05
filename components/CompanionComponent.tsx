@@ -5,6 +5,7 @@ import {vapi} from "@/lib/vapi.sdk";
 import Image from "next/image";
 import soundwaves from '@/constants/soundwaves.json'
 import Lottie,{LottieRefCurrentProps} from 'lottie-react'
+import {addToSessionHistory} from "@/lib/actions/companion.actions";
 
 
 enum CallStatus{
@@ -32,7 +33,11 @@ const CompanionComponent=({companionId, subject, topic, name, userName, userImag
     useEffect(() => {
 
         const onCallStart=()=>setCallStatus(CallStatus.ACTIVE);
-        const onCallEnd=()=>setCallStatus(CallStatus.FINISHED);
+        const onCallEnd=()=>{
+
+            setCallStatus(CallStatus.FINISHED)
+            addToSessionHistory(companionId)
+        };
         const onMessage=(message:Message)=>{
             if(message.type==='transcript' && message.transcriptType==='final'){
                 const newMessage={role:message.role, content:message.transcript}

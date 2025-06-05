@@ -1,6 +1,8 @@
-import React from 'react'
+'use client'
 import Image from "next/image";
 import Link from "next/link";
+import {useBookmark} from "@/app/Context/BookmarkContext";
+
 
 interface CompanionCardProps{
     id:string;
@@ -9,14 +11,21 @@ interface CompanionCardProps{
     subject:string;
     duration:number;
     color:string;
+
 }
 
+
+
+
 const CompanionCard=({id,name,topic,subject,duration,color}:CompanionCardProps)=>{
+const {addToBookmark}=useBookmark();
+
+
     return (
        <article className="companion-card" style={{backgroundColor:color}}>
            <div className='flex justify-between items-center'>
                <div className='subject-badge'>{subject}</div>
-               <button className='companion-bookmark'>
+               <button className='companion-bookmark' onClick={()=>addToBookmark(id)}>
                   <Image src='/icons/bookmark.svg' alt='bookmark' width={12.5} height={15}/>
                </button>
            </div>
